@@ -1,0 +1,204 @@
+/*
+this is not the entire chapter as the section about const qualifieres and the boolean data type were left out. 
+Most of what was present in this chapter is there in the code, however.
+  */
+
+#include <iostream>
+using namespace std;
+
+//struct
+struct employee
+{
+    char name[20];
+    int age;
+};
+
+//union
+union MyData
+{
+    char kh[2];
+    int i;
+};
+enum status{married, unmarried, divorced};
+
+//struct, union, and enum declarations
+employee e;
+MyData d;
+status s;
+
+//anonymous union at the global level must be static
+static union 
+{
+    int cr; char lp[2];
+};
+
+//anonymous unions are useful when nested into a structure
+
+struct employeeTwo
+{
+    char role[20];
+    union
+    {
+        int emptype;
+        char grade[4];
+    };
+};
+
+struct empThree
+{
+    char n[20];
+    int ag;
+    float sal;
+};
+
+void displayVal(empThree);
+void displayAddr(empThree *);
+void displayRef(empThree &);
+
+//anonymous enum
+enum{sleeper, acthtreetier, actwotier, acfirstclass};
+int bogietype = actwotier;
+
+int num = 10;
+
+void swapv(int i, int j)
+{
+    int t;
+    t = i;
+    i = j;
+    j = t;
+    cout << "Swapped i and j " << i << " " << j << endl;
+}
+
+void swapa(int *i, int *j)
+{
+    int t;
+    t = *i;
+    *i = *j;
+    *j = t;
+    cout << "Swapped i and j " << i << " " << j << endl;
+}
+
+void swapr(int& i, int& j)
+{
+    int t;
+    t = i;
+    i = j;
+    j = t;
+    cout << "Swapped i and j " << i << " " << j << endl;
+}
+
+
+int main()
+{
+    //Input output in c++
+    char str[40];
+    int x, y, z, mean;
+
+    cout << "Enter your name: ";
+    cin >> str;
+
+    cout << "Enter marks in three subjects: ";
+    cin >> x >> y >> z;
+    mean = (x + y + z) / 3;
+
+    cout << "Your name is " << str;
+    cout << endl << "And your average marks are " << mean << endl;
+   
+    //Flexible Declarations
+    int f; 
+    cin >> f;
+    int c = (f - 32) * 5 / 9;
+    cout << c;
+    for (int j = 10; j <= 100; j++)
+    {
+        cout << endl << j;
+    }
+
+    //Flexible initializations
+    int age1 = 32;
+    int age2(32);
+    int age3{ 32 };
+
+    //Inferring types 
+
+    auto a1 = 32;
+    auto a2 = a1;
+
+    char ch;
+    decltype(ch) dh;
+
+    //referring to employee2 
+
+    struct employeeTwo e2;
+    e2.emptype = 3;
+
+
+    //type casting
+    int why = 1001, j = 365, n;
+    n = (why - 1) * (long)j; //C style typecasting
+    n = (why - 1) * long(j); //C++ style typecasting
+
+    //void pointers
+    void* p;
+    char* s;
+    //p = s;
+    //s = p; produces an error because type void cannot be assigned to type char
+    //you can assign a pointer of any type to a void pointer but not vice versa unless it is casted
+    //like below
+    //s = (char*)p;
+
+    //::operator (scope resolution operator)
+    int num = 15;
+    cout << "Local num = " << num << endl;
+    cout << "Global num = " << ::num << endl;
+    ::num = 20; 
+    cout << "Local num = " << num << endl;
+    cout << "Global num = " << ::num << endl;
+
+    // References
+    int i0 = 10;     
+    int& j0 = i0;    
+    cout << "i0 = " << i0 << " j0 = " << j0 << endl;
+    j0 = 20;
+    cout << "i0 = " << i0 << " j0 = " << j0 << endl;
+    i0 = 30;
+    cout << "i0 = " << i0 << " j0 = " << j0 << endl;
+    i0++;
+    cout << "i0 = " << i0 << " j0 = " << j0 << endl;
+    j0++;
+    cout << "i0 = " << i0 << " j0 = " << j0 << endl;
+    cout << "address of i0 = " << &i0 << " address of j0 = " << &j0 << endl;
+
+    //Types of function calls
+    int aval = 10, bval = 20;
+    swapv(aval, bval); //call by value
+    swapa(&aval, &bval); //call by address
+    swapr(aval, bval); // call be reference
+
+    empThree e3 = { "Aum", 19, 1500.00 };
+    displayVal(e3);
+    displayAddr(&e3);
+    displayRef(e3);
+
+}
+
+void displayVal(empThree e)
+{
+    cout << "Diplaying empThree val" << endl;
+    cout << e.n << endl << e.ag << endl << e.sal << endl << endl;
+}
+
+void displayAddr(empThree *p)
+{
+    cout << "Diplaying empThree addr" << endl;
+    cout << p->n << endl << p->ag << endl << p->sal << endl << endl;
+}
+
+void displayRef(empThree &p)
+{
+    cout << "Diplaying empThree ref" << endl;
+    cout << p.n << endl << p.ag << endl << p.sal << endl << endl;
+}
+
+
