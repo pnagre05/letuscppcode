@@ -1,0 +1,141 @@
+#include <iostream>
+using namespace std;
+
+/* if you do not pass any values to a function then the default is set
+in this case, its 0 for n3 and n4 
+- default values can only be mentioned in the prototype
+- can only be used for trailing arguments
+- argument can be a global constant, var, or even a func call */
+int sum(int n1, int n2, int n3 = 0, int n4 = 0);
+
+int abso(int);
+long abso(long);
+double abso(double);
+
+void display(char*);
+void display(const char*);
+
+struct Complex
+{
+	double real, imag;
+};
+
+Complex setComplex(double r, double i);
+void printComplex(Complex c);
+Complex operator + (Complex c1, Complex c2);
+Complex operator - (Complex c1, Complex c2);
+
+//difference in return type is not enough - the arguments/parameters need to be different too
+
+int main() 
+{
+	//testing default arguments
+	int s1, s2, s3;
+	s1 = sum(10, 20);
+	s2 = sum(10, 20, 30);
+	s3 = sum(10, 20, 30, 40);
+	cout << s1 << endl << s2 << endl << s3 << endl;
+
+	//testing overloaded functions
+	int i = -25, j;
+	long l = -100000L, m;
+	double d = -12.34, e;
+	j = abso(i);
+	m = abso(l);
+	e = abso(d);
+
+	//Difference through const
+
+	/*
+	char* ch1 = "Hello";
+	const char* ch2 = "Bye";
+	display(ch1);
+	display(ch2);
+
+	The code above will not work
+
+	In C++, string literals like "Hello" are stored in read-only memory. 
+	Because they are constant, you must use a const char* pointer to refer to them, 
+	not a plain char*, to prevent accidental modification and ensure type safety.
+	*/
+
+	const char* ch1 = "Hello"; // String literals are const, so use const char*
+	const char* ch2 = "Bye";
+	display(ch1); // Calls display(const char*)
+	display(ch2); // Calls display(const char*)
+
+	//Operator overloading
+
+	Complex a, b, c, de;
+
+	a = setComplex(1.0, 2.0);
+	b = setComplex(2.0, 2.0);
+	c = a + b;
+	de = b + c - a;
+	cout << "c = ";
+	printComplex(c);
+	cout << "d = ";
+	printComplex(de);
+
+
+}
+int sum(int n1, int n2, int n3, int n4)
+{
+	return (n1 + n2 + n3 + n4);
+}
+
+int abso(int ii)
+{
+	return (ii > 0 ? ii : ii * -1);
+}
+
+long abso(long ll)
+{
+	return (ll > 0 ? ll : ll * -1);
+
+}
+
+double abso(double dd)
+{
+	return (dd > 0 ? dd : dd	 * -1);
+
+}
+
+void display(char* p)
+{
+	cout << p << endl;
+}
+
+void display(const char* p)
+{
+	cout << p << endl;
+}
+
+Complex setComplex(double r, double i)
+{
+	Complex temp;
+	temp.real = r;
+	temp.imag = i;
+	return temp;
+}
+
+void printComplex(Complex t)
+{
+	cout << "(" << t.real << ", " << t.imag << ")" << endl;
+}
+
+Complex operator + (Complex c1, Complex c2)
+{
+	Complex temp;
+	temp.real = c1.real + c2.real;
+	temp.imag = c1.imag + c2.imag;
+	return temp;
+}
+
+Complex operator - (Complex c1, Complex c2)
+{
+	Complex temp;
+	temp.real = c1.real - c2.real;
+	temp.imag = c1.imag - c2.imag;
+	return temp;
+}
