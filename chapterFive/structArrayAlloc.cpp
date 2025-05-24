@@ -37,4 +37,17 @@ int main()
 	delete[] ptprint;
 	delete ptr;
 
+	//dynamic allocation of array size
+	/*
+ 	int n;
+  	cin >> n;
+   	int arr[n]
+    	this does not work as statically allocated arrays cannot dedicate memory during compile time
+ 	*/
+
+	//this works
+	int n;
+	cin >> n;
+	int *p = new int[n];
+
 }
