@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+
+class Sample
+{
+	private:
+		int i;
+	public:
+		virtual void display()
+		{
+			cout << endl << "In sample class";
+		}
+};
+
+class Trial
+{
+	public:
+		virtual void display()
+		{
+			cout << endl << "In Example class";
+		}
+};
+
+int main() 
+{
+	Sample s;
+	Trial t;
+	cout << sizeof(s) << endl << sizeof(t);
+	return 0;
+}
